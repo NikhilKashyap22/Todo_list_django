@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+    <title>DayTracker ||  Nikhil Kashyap</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Manage your Tasks, One at a Time!</h1>
+    <a href="{% url 'clear-all' %}">Clear list</a>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{forms.title}}
+        <input type="submit" name="Create-Task">
+        <div class="div-form">
+            {% for task in tasks %}
+            <div class="a-div">
+                <a href="{% url 'update-task' task.id %}">Update</a>
+                <a href="{% url 'delete-task' task.id %}">Delete</a>
+            
+            </div>
+            {% if task.Complete == True %}
+            <p><strike>{{task}}</strike></p>
+            {% else %}
+            <p>{{task}}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </form>
+    </div>
+</body>
+</html>
